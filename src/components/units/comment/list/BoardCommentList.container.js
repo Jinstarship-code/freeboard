@@ -1,4 +1,3 @@
-import { useState } from "react";
 import BoardCommentListUI from "./BoardCommentList.presenter";
 import {
   FETCH_BOARDCOMMENTS,

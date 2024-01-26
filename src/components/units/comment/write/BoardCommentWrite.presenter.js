@@ -10,15 +10,18 @@ import {
 export default function BoardCommentWriteUI(props) {
   return (
     <Container>
-      <CommentHeaderWrapper>
-        <img src="/img/rate_review-24px.png" />
-        <CommentHeader>댓글</CommentHeader>
-      </CommentHeaderWrapper>
+      {props.isEdit ?? (
+        <CommentHeaderWrapper>
+          <img src="/img/rate_review-24px.png" />
+          <CommentHeader>댓글</CommentHeader>
+        </CommentHeaderWrapper>
+      )}
       <RatingWrapper>
         <input
           type="text"
           placeholder="작성자"
           onChange={props.onChangeWriter}
+          defaultValue={props.el?.writer}
         />
         <input
           type="password"
@@ -34,8 +37,16 @@ export default function BoardCommentWriteUI(props) {
           maxLength={100}
         />
         <CommentButtonWrapper>
-          <div>{props.wordLength}/100</div>
-          <button onClick={props.onClickSubmitComment}>등록하기</button>
+          <div>0/100</div>
+          <button
+            onClick={
+              props.isEdit
+                ? props.onClickUpdateComment
+                : props.onClickSubmitComment
+            }
+          >
+            {props.isEdit ? "수정" : "등록"}하기
+          </button>
         </CommentButtonWrapper>
       </CommentWriterWrapper>
     </Container>
