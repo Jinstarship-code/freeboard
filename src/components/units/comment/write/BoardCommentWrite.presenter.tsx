@@ -6,8 +6,9 @@ import {
   CommentWriterWrapper,
   CommentButtonWrapper,
 } from "./BoardCommentWrite.styles";
+import { IBoardCommentWriteUIProps } from "./BoardCommentWrite.types";
 
-export default function BoardCommentWriteUI(props) {
+export default function BoardCommentWriteUI(props: IBoardCommentWriteUIProps) {
   return (
     <Container>
       {props.isEdit ?? (

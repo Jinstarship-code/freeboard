@@ -10,9 +10,12 @@ import {
 } from "./BoardCommentList.styles";
 import BoardCommentWrite from "../write/BoardCommentWrite.container";
 import { useState } from "react";
+import { IBoardCommentListItemProps } from "./BoardCommentList.types";
 
-export default function BoardCommentListItem(props) {
-  const [isEdit, setIsEdit] = useState(false);
+export default function BoardCommentListItem(
+  props: IBoardCommentListItemProps
+) {
+  const [isEdit, setIsEdit] = useState<boolean>(false);
 
   const onClickUpdate = () => {
     setIsEdit(true);

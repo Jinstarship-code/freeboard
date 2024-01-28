@@ -15,8 +15,9 @@ import {
   PagesWrapper,
   Button,
 } from "./BoardList.styles";
+import { IBoardListUIProps } from "./BoardList.types";
 
-export default function BoardListUI(props) {
+export default function BoardListUI(props: IBoardListUIProps) {
   return (
     <Container>
       <SearchWrapper>

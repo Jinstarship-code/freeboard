@@ -22,8 +22,9 @@ import {
   ZipcodeWrapper,
   ErrorDiv,
 } from "./BoardWrite.styles";
+import { IBoardWriteUIProps } from "./BoardWrite.types";
 
-export default function BoardWriteUI(props) {
+export default function BoardWriteUI(props: IBoardWriteUIProps) {
   return (
     <Wrapper>
       <Title>게시글 {props.isEdit ? "수정" : "등록"}</Title>
@@ -96,7 +97,7 @@ export default function BoardWriteUI(props) {
       <ButtonWrapper>
         <SubmitButton
           onClick={props.isEdit ? props.onClickEdit : props.onClickSubmit}
-          isActive={props.isActive}
+          isActive={props.isEdit ? true : props.isActive}
         >
           {props.isEdit ? "수정" : "등록"}하기
         </SubmitButton>

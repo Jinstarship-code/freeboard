@@ -17,8 +17,9 @@ import {
   ButtonsWrapper,
   Button,
 } from "./BoardDetail.styles";
+import { IBoardDetailUIProps } from "./BoardDetail.types";
 
-export default function BoardDetailUI(props) {
+export default function BoardDetailUI(props: IBoardDetailUIProps) {
   return (
     <Container>
       <Wrapper>
@@ -27,10 +28,10 @@ export default function BoardDetailUI(props) {
             <ProfileDetailWrapper>
               <img src="/img/ic_profile-56px.png" />
               <ProfileNameWrapper>
-                <SellerDiv>{props.writer}</SellerDiv>
+                <SellerDiv>{props.data?.fetchBoard?.writer}</SellerDiv>
                 <DateDiv>
                   Date :{" "}
-                  {String(props.createdAt)
+                  {String(props.data?.fetchBoard?.createdAt)
                     .substring(0, 10)
                     .replaceAll("-", ".")}
                 </DateDiv>
@@ -43,16 +44,16 @@ export default function BoardDetailUI(props) {
           </LinkWrapper>
         </ProfileWrapper>
         <ContentsWrapper>
-          <Title>{props.title}</Title>
-          <Contents>{props.contents}</Contents>
+          <Title>{props.data?.fetchBoard?.title}</Title>
+          <Contents>{props.data?.fetchBoard?.contents}</Contents>
           <LikeDislikeWrapper>
             <LikeWrapper>
               <StyledImg src="/img/ic_thumb_up_off_alt-24px.png" />
-              <div>{props.likeCount}</div>
+              <div>{props.data?.fetchBoard?.likeCount}</div>
             </LikeWrapper>
             <DislikeWrapper>
               <StyledImg src="/img/ic_thumb_down-24px.png" />
-              <div>{props.dislikeCount}</div>
+              <div>{props.data?.fetchBoard?.dislikeCount}</div>
             </DislikeWrapper>
           </LikeDislikeWrapper>
         </ContentsWrapper>
@@ -60,9 +61,7 @@ export default function BoardDetailUI(props) {
       <ButtonsWrapper>
         <Button onClick={props.onClickMoveList}>목록으로</Button>
         <Button onClick={props.onClickMoveEdit}>수정하기</Button>
-        <Button id={props.id} onClick={props.onClickDelete}>
-          삭제하기
-        </Button>
+        <Button onClick={props.onClickDeleteBoard}>삭제하기</Button>
       </ButtonsWrapper>
     </Container>
   );
