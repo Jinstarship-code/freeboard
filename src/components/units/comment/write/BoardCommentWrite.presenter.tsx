@@ -22,7 +22,8 @@ export default function BoardCommentWriteUI(props: IBoardCommentWriteUIProps) {
           type="text"
           placeholder="작성자"
           onChange={props.onChangeWriter}
-          defaultValue={props.el?.writer}
+          defaultValue={props.el?.writer ?? ""}
+          readOnly={!!props.el?.writer}
         />
         <input
           type="password"
