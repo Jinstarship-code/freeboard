@@ -33,7 +33,7 @@ export default function BoardCommentList() {
   >(DELETE_BOARDCOMMENTS);
 
   const onClickDeleteComment = async (event: MouseEvent<HTMLImageElement>) => {
-    let password = prompt("비밀번호를 입력해주세요.");
+    const password = prompt("비밀번호를 입력해주세요.");
 
     if (!(event.target instanceof HTMLImageElement)) {
       return <></>;

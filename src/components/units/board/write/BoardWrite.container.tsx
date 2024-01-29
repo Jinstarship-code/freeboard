@@ -1,6 +1,6 @@
 import BoardWriteUI from "./BoardWrite.presenter";
 import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
-import { useState, MouseEvent, ChangeEvent } from "react";
+import { useState, ChangeEvent } from "react";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { IBoardWriteProps } from "./BoardWrite.types";
@@ -42,9 +42,10 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const boardId =
     typeof router.query.boardId === "string" ? router.query.boardId : "";
 
-  //#region onChange Functions
+  // #region onChange Functions
   const onChangeWriter = (event: ChangeEvent<HTMLInputElement>): void => {
     setWriter(event.target.value);
+
     if (event.target.value) {
       setErrorWriter("");
     }
@@ -94,7 +95,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
       setIsActive(false);
     }
   };
-  //#endregion
+  // #endregion
 
   const onClickSubmit = async () => {
     if (!writer) {

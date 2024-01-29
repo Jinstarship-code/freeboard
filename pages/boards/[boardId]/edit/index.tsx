@@ -7,7 +7,7 @@ import {
   IQueryFetchBoardArgs,
 } from "../../../../src/commons/types/generated/types";
 
-export default function BoardWriteEditPage() {
+export default function BoardWriteEditPage(): JSX.Element {
   const router = useRouter();
   const boardId =
     typeof router.query.boardId === "string" ? router.query.boardId : "";
@@ -18,9 +18,10 @@ export default function BoardWriteEditPage() {
       variables: {
         boardId,
       },
-    }
+    },
   );
 
-  if (!boardId) return <></>;
+  if (typeof boardId !== "string") return <></>;
+
   return <BoardWrite data={data} isEdit={true} />;
 }

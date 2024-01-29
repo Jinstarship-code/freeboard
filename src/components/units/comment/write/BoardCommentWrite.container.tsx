@@ -5,7 +5,7 @@ import {
   UPDATE_BOARDCOMMENT,
 } from "./BoardCommentWrite.queries";
 import { FETCH_BOARDCOMMENTS } from "../list/BoardCommentList.queries";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import {
   IMutation,
@@ -17,7 +17,8 @@ import { IBoardCommentWriteProps } from "./BoardCommentWrite.types";
 export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
   const [writer, setWriter] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [rating, setRatring] = useState<number>(3.5);
+  // const [rating, setRatring] = useState<number>(3.5);
+  const rating = 3.5;
   const [contents, setContents] = useState<string>("");
 
   const router = useRouter();
@@ -41,7 +42,7 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
     setPassword(event.target.value);
   };
 
-  //TODO rating 배우고나면 type 적용할 것
+  // TODO rating 배우고나면 type 적용할 것
   // const onChangeRating = (event: ChangeEvent<HTMLInputElement>) => {
   //   setRatring(event.target.value);
   // };
@@ -97,7 +98,7 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
       return;
     }
 
-    //TODO rating 배우고 나서는 contents를 객체로 따로 만들고 담아서 보내줘야한다.
+    // TODO rating 배우고 나서는 contents를 객체로 따로 만들고 담아서 보내줘야한다.
     try {
       await updateBoardComment({
         variables: {
