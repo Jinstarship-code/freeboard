@@ -70,6 +70,13 @@ export default function BoardDetail(): JSX.Element {
     });
   };
 
+  const onClickDisLikeBoard = async () => {
+    await dislikeBoard({
+      variables: { boardId },
+      refetchQueries: [{ query: FETCH_BOARD, variables: { boardId } }],
+    });
+  };
+
   if (typeof boardId !== "string") return <></>;
 
   return (
@@ -79,6 +86,7 @@ export default function BoardDetail(): JSX.Element {
       onClickMoveList={onClickMoveList}
       onClickDeleteBoard={onClickDeleteBoard}
       onClickLikeBoard={onClickLikeBoard}
+      onClickDisLikeBoard={onClickDisLikeBoard}
     />
   );
 }

@@ -60,6 +60,7 @@ export const LinkWrapper = styled.div`
 
 export const StyledImg = styled.img`
   object-fit: none;
+  cursor: pointer;
 `;
 
 export const ContentsWrapper = styled.div`

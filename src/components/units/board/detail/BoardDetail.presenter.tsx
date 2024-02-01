@@ -48,11 +48,17 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
           <Contents>{props.data?.fetchBoard?.contents}</Contents>
           <LikeDislikeWrapper>
             <LikeWrapper>
-              <StyledImg src="/img/ic_thumb_up_off_alt-24px.png" />
+              <StyledImg
+                src="/img/ic_thumb_up_off_alt-24px.png"
+                onClick={props.onClickLikeBoard}
+              />
               <div>{props.data?.fetchBoard?.likeCount}</div>
             </LikeWrapper>
             <DislikeWrapper>
-              <StyledImg src="/img/ic_thumb_down-24px.png" />
+              <StyledImg
+                src="/img/ic_thumb_down-24px.png"
+                onClick={props.onClickDisLikeBoard}
+              />
               <div>{props.data?.fetchBoard?.dislikeCount}</div>
             </DislikeWrapper>
           </LikeDislikeWrapper>
