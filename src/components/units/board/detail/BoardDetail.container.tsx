@@ -15,11 +15,13 @@ import {
   IQuery,
   IQueryFetchBoardArgs,
 } from "../../../../commons/types/generated/types";
+import { IYoutubeProps } from "./BoardDetail.types";
 
 export default function BoardDetail(): JSX.Element {
   const router = useRouter();
   const boardId =
     typeof router.query.boardId === "string" ? router.query.boardId : "";
+
   const [likeBoard] = useMutation<
     Pick<IMutation, "likeBoard">,
     IMutationLikeBoardArgs
@@ -38,6 +40,7 @@ export default function BoardDetail(): JSX.Element {
       },
     },
   );
+  console.log(data?.fetchBoard);
 
   const [deleteBoard] = useMutation<
     Pick<IMutation, "deleteBoard">,
@@ -77,6 +80,18 @@ export default function BoardDetail(): JSX.Element {
     });
   };
 
+  // #region youtube data 가공
+  const youtubeProps: IYoutubeProps = {
+    videoId: "",
+    style: { margin: "100px auto 0px auto" },
+  };
+
+  if (data?.fetchBoard.youtubeUrl) {
+    youtubeProps.videoId = String(data?.fetchBoard.youtubeUrl).split("v=")[1];
+  }
+
+  // #endregion
+
   if (typeof boardId !== "string") return <></>;
 
   return (
@@ -87,6 +102,7 @@ export default function BoardDetail(): JSX.Element {
       onClickDeleteBoard={onClickDeleteBoard}
       onClickLikeBoard={onClickLikeBoard}
       onClickDisLikeBoard={onClickDisLikeBoard}
+      youtubeProps={youtubeProps}
     />
   );
 }

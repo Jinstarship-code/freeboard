@@ -26,7 +26,8 @@ export const RatingWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 500px;
+  width: 550px;
+  align-items: center;
 
   & input {
     width: 180px;

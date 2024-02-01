@@ -20,6 +20,7 @@ export interface IBoardWriteUIProps {
   onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeTitle: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeContent: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  onChangeYoutubeURI: (event: ChangeEvent<HTMLInputElement>) => void;
   onClickSubmit: (event: MouseEvent<HTMLButtonElement>) => void;
   onClickEdit: (event: MouseEvent<HTMLButtonElement>) => void;
   errorWriter: string;
@@ -33,4 +34,13 @@ export interface IBoardWriteUIProps {
 
 export interface ISubmitButtonProps {
   isActive: boolean;
+}
+
+export interface ICreateBoardInput {
+  _id: string;
+  writer: string;
+  title: string;
+  contents: string;
+  youtubeUrl?: string;
+  boardAddress?: string;
 }

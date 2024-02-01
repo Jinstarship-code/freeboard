@@ -7,6 +7,7 @@ import {
   CommentButtonWrapper,
 } from "./BoardCommentWrite.styles";
 import { IBoardCommentWriteUIProps } from "./BoardCommentWrite.types";
+import { Rate } from "antd";
 
 export default function BoardCommentWriteUI(props: IBoardCommentWriteUIProps) {
   return (
@@ -30,7 +31,7 @@ export default function BoardCommentWriteUI(props: IBoardCommentWriteUIProps) {
           placeholder="비밀번호"
           onChange={props.onChangePassword}
         />
-        <img src="/img/starrating.png" />
+        <Rate allowHalf value={props.rating} onChange={props.setRating} />
       </RatingWrapper>
       <CommentWriterWrapper>
         <textarea

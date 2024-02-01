@@ -79,6 +79,12 @@ export const Contents = styled.div`
   font-size: 16px;
 `;
 
+export const YoutubeWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
 export const LikeDislikeWrapper = styled.div`
   display: flex;
   flex-direction: row;

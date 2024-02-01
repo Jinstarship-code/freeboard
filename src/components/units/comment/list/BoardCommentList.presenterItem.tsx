@@ -11,9 +11,10 @@ import {
 import BoardCommentWrite from "../write/BoardCommentWrite.container";
 import { useState } from "react";
 import { IBoardCommentListItemProps } from "./BoardCommentList.types";
+import { Rate } from "antd";
 
 export default function BoardCommentListItem(
-  props: IBoardCommentListItemProps
+  props: IBoardCommentListItemProps,
 ) {
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
@@ -31,7 +32,7 @@ export default function BoardCommentListItem(
           <ContentsWrapper>
             <HeaderCommentWrapper>
               <Name>{props.el?.writer}</Name>
-              <img src="/img/starrating.png" />
+              <Rate disabled value={props.el?.rating} />
             </HeaderCommentWrapper>
             <Comment>{props.el?.contents}</Comment>
             <CommentCreatedAtDiv>
