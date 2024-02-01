@@ -5,6 +5,7 @@ import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { IBoardWriteProps } from "./BoardWrite.types";
 import {
+  ICreateBoardInput,
   IMutation,
   IMutationCreateBoardArgs,
   IMutationUpdateBoardArgs,
@@ -19,6 +20,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [password, setPassword] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [contents, setContent] = useState<string>("");
+  const [youtube, SetYoutube] = useState<string>("");
 
   // error state
   const [errorWriter, setErrorWriter] = useState<string>("");
@@ -42,7 +44,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const boardId =
     typeof router.query.boardId === "string" ? router.query.boardId : "";
 
-  // #region onChange Functions
+  //  #region onChange Functions
   const onChangeWriter = (event: ChangeEvent<HTMLInputElement>): void => {
     setWriter(event.target.value);
 
@@ -88,16 +90,28 @@ export default function BoardWrite(props: IBoardWriteProps) {
     if (event.target.value) {
       setErrorContent("");
     }
-
     if (writer && password && title && event.target.value) {
       setIsActive(true);
     } else {
       setIsActive(false);
     }
   };
-  // #endregion
+
+  const onChangeYoutubeURI = (event: ChangeEvent<HTMLInputElement>) => {
+    SetYoutube(event.target.value);
+    console.log(youtube);
+  };
+
+  //  #endregion onChange Functions
 
   const onClickSubmit = async () => {
+    const CreateBoardInput: ICreateBoardInput = {
+      writer,
+      password,
+      title,
+      contents,
+    };
+
     if (!writer) {
       setErrorWriter("* 작성자를 입력해 주세요");
     }
@@ -113,17 +127,20 @@ export default function BoardWrite(props: IBoardWriteProps) {
     if (!contents) {
       setErrorContent("* 내용을 입력해 주세요.");
     }
+    CreateBoardInput.writer = writer;
+    CreateBoardInput.password = password;
+    CreateBoardInput.title = title;
+    CreateBoardInput.contents = contents;
+
+    if (youtube && youtube.includes("https://www.youtube.com/watch")) {
+      CreateBoardInput.youtubeUrl = youtube;
+    }
 
     if (writer && password && title && contents) {
       try {
         const result = await createBoard({
           variables: {
-            createBoardInput: {
-              writer,
-              password,
-              title,
-              contents,
-            },
+            createBoardInput: CreateBoardInput,
           },
         });
 
@@ -136,7 +153,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
   };
 
   const onClickEdit = async () => {
-    if (!title && !contents) {
+    if (!title && !contents && !youtube) {
       alert("수정한 내용이 없습니다.");
       return;
     }
@@ -149,7 +166,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
     const updateBoardInput: IUpdateBoardInput = {};
     if (title) updateBoardInput.title = title;
     if (contents) updateBoardInput.contents = contents;
-
+    if (youtube) updateBoardInput.youtubeUrl = youtube;
     const result = await updateBoard({
       variables: {
         boardId,
@@ -168,6 +185,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
       onChangePassword={onChangePassword}
       onChangeTitle={onChangeTitle}
       onChangeContent={onChangeContent}
+      onChangeYoutubeURI={onChangeYoutubeURI}
       onClickSubmit={onClickSubmit}
       onClickEdit={onClickEdit}
       errorWriter={errorWriter}
@@ -180,3 +198,25 @@ export default function BoardWrite(props: IBoardWriteProps) {
     />
   );
 }
+
+/**
+ * <YouTube
+  videoId={string}                  // defaults -> ''
+  id={string}                       // defaults -> ''
+  className={string}                // defaults -> ''
+  iframeClassName={string}          // defaults -> ''
+  style={object}                    // defaults -> {}
+  title={string}                    // defaults -> ''
+  loading={string}                  // defaults -> undefined
+  opts={obj}                        // defaults -> {}
+  onReady={func}                    // defaults -> noop
+  onPlay={func}                     // defaults -> noop
+  onPause={func}                    // defaults -> noop
+  onEnd={func}                      // defaults -> noop
+  onError={func}                    // defaults -> noop
+  onStateChange={func}              // defaults -> noop
+  onPlaybackRateChange={func}       // defaults -> noop
+  onPlaybackQualityChange={func}    // defaults -> noop
+/>
+ * 
+ */

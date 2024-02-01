@@ -80,7 +80,10 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
       </InputWrapper>
       <InputWrapper>
         <Label>유튜브</Label>
-        <Youtube placeholder="링크를 복사해주세요." />
+        <Youtube
+          placeholder="링크를 복사해주세요."
+          onChange={props.onChangeYoutubeURI}
+        />
       </InputWrapper>
       <ImageWrapper>
         <Label>사진첨부</Label>

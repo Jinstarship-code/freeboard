@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 
+// return 값에도 type안에 property가 있는경우 boardAddress확인.
 export const FETCH_BOARD = gql`
   query fetchBoard($boardId: ID!) {
     fetchBoard(boardId: $boardId) {
@@ -9,7 +10,15 @@ export const FETCH_BOARD = gql`
       contents
       likeCount
       dislikeCount
+      youtubeUrl
+      boardAddress {
+        _id
+        zipcode
+        address
+        addressDetail
+      }
       createdAt
+      updatedAt
     }
   }
 `;

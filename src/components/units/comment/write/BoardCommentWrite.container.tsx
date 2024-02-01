@@ -17,8 +17,7 @@ import { IBoardCommentWriteProps } from "./BoardCommentWrite.types";
 export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
   const [writer, setWriter] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  // const [rating, setRatring] = useState<number>(3.5);
-  const rating = 3.5;
+  const [rating, setRating] = useState<number>(3.5);
   const [contents, setContents] = useState<string>("");
 
   const router = useRouter();
@@ -41,11 +40,6 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
   const onChangePassword = (event: ChangeEvent<HTMLInputElement>): void => {
     setPassword(event.target.value);
   };
-
-  // TODO rating 배우고나면 type 적용할 것
-  // const onChangeRating = (event: ChangeEvent<HTMLInputElement>) => {
-  //   setRatring(event.target.value);
-  // };
 
   const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>): void => {
     setContents(event.target.value);
@@ -88,21 +82,21 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
   };
 
   const onClickUpdateComment = async () => {
-    if (!contents) {
-      alert("내용이 수정되지 않았습니다.");
-      return;
-    }
-
     if (!password) {
       alert("비밀번호가 입력되지 않았습니다.");
       return;
     }
 
-    // TODO rating 배우고 나서는 contents를 객체로 따로 만들고 담아서 보내줘야한다.
+    if (!contents) {
+      alert("내용을 입력해주세요.");
+    }
+
+    setRating(rating);
+
     try {
       await updateBoardComment({
         variables: {
-          updateBoardCommentInput: { contents },
+          updateBoardCommentInput: { contents, rating },
           password,
           boardCommentId: props.el._id,
         },
@@ -132,6 +126,8 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
       isEdit={props.isEdit}
       el={props.el}
       contents={contents}
+      setRating={setRating}
+      rating={rating}
     />
   );
 }

@@ -1,3 +1,4 @@
+import YouTube from "react-youtube";
 import {
   Container,
   Wrapper,
@@ -16,6 +17,7 @@ import {
   DislikeWrapper,
   ButtonsWrapper,
   Button,
+  YoutubeWrapper,
 } from "./BoardDetail.styles";
 import { IBoardDetailUIProps } from "./BoardDetail.types";
 
@@ -46,6 +48,12 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
         <ContentsWrapper>
           <Title>{props.data?.fetchBoard?.title}</Title>
           <Contents>{props.data?.fetchBoard?.contents}</Contents>
+          <YoutubeWrapper>
+            <YouTube
+              videoId={props.youtubeProps.videoId}
+              style={props.youtubeProps.style}
+            />
+          </YoutubeWrapper>
           <LikeDislikeWrapper>
             <LikeWrapper>
               <StyledImg
