@@ -22,6 +22,7 @@ export default function BoardDetail(): JSX.Element {
   const boardId =
     typeof router.query.boardId === "string" ? router.query.boardId : "";
 
+  // useMutations
   const [likeBoard] = useMutation<
     Pick<IMutation, "likeBoard">,
     IMutationLikeBoardArgs
@@ -32,6 +33,12 @@ export default function BoardDetail(): JSX.Element {
     IMutationDislikeBoardArgs
   >(DISLIKE_BOARD);
 
+  const [deleteBoard] = useMutation<
+    Pick<IMutation, "deleteBoard">,
+    IMutationDeleteBoardArgs
+  >(DELETE_BOARD);
+
+  // useQuerys
   const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
     FETCH_BOARD,
     {
@@ -40,14 +47,10 @@ export default function BoardDetail(): JSX.Element {
       },
     },
   );
+  console.log("bottom is data.fetch");
   console.log(data?.fetchBoard);
 
-  const [deleteBoard] = useMutation<
-    Pick<IMutation, "deleteBoard">,
-    IMutationDeleteBoardArgs
-  >(DELETE_BOARD);
-
-  // onClick Functions
+  // #region onClick Functions
   const onClickMoveEdit = () => {
     router.push(`/boards/${boardId}/edit`);
   };
@@ -79,6 +82,8 @@ export default function BoardDetail(): JSX.Element {
       refetchQueries: [{ query: FETCH_BOARD, variables: { boardId } }],
     });
   };
+
+  // #endregion
 
   // #region youtube data 가공
   const youtubeProps: IYoutubeProps = {

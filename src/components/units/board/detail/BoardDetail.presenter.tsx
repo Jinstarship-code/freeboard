@@ -48,12 +48,16 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
         <ContentsWrapper>
           <Title>{props.data?.fetchBoard?.title}</Title>
           <Contents>{props.data?.fetchBoard?.contents}</Contents>
-          <YoutubeWrapper>
-            <YouTube
-              videoId={props.youtubeProps.videoId}
-              style={props.youtubeProps.style}
-            />
-          </YoutubeWrapper>
+          {props.youtubeProps.videoId ? (
+            <YoutubeWrapper>
+              <YouTube
+                videoId={props.youtubeProps.videoId}
+                style={props.youtubeProps.style}
+              />
+            </YoutubeWrapper>
+          ) : (
+            <div></div>
+          )}
           <LikeDislikeWrapper>
             <LikeWrapper>
               <StyledImg

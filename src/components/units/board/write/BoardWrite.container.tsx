@@ -15,12 +15,16 @@ import {
 export default function BoardWrite(props: IBoardWriteProps) {
   // router
   const router = useRouter();
+
   // useStates
   const [writer, setWriter] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [contents, setContent] = useState<string>("");
-  const [youtube, SetYoutube] = useState<string>("");
+  const [youtube, setYoutube] = useState<string>("");
+  const [address, setAddress] = useState<string>("");
+  const [detailAddress, setDetailAddress] = useState<string>("");
+  const [zoneCode, setZoneCode] = useState<string>("");
 
   // error state
   const [errorWriter, setErrorWriter] = useState<string>("");
@@ -30,6 +34,8 @@ export default function BoardWrite(props: IBoardWriteProps) {
 
   // is-- state
   const [isActive, setIsActive] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
 
   // mutation
   const [createBoard] = useMutation<
@@ -98,8 +104,12 @@ export default function BoardWrite(props: IBoardWriteProps) {
   };
 
   const onChangeYoutubeURI = (event: ChangeEvent<HTMLInputElement>) => {
-    SetYoutube(event.target.value);
+    setYoutube(event.target.value);
     console.log(youtube);
+  };
+
+  const onChangeDetailAddress = (event: ChangeEvent<HTMLInputElement>) => {
+    setDetailAddress(String(event.target.value));
   };
 
   //  #endregion onChange Functions
@@ -127,6 +137,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
     if (!contents) {
       setErrorContent("* 내용을 입력해 주세요.");
     }
+
     CreateBoardInput.writer = writer;
     CreateBoardInput.password = password;
     CreateBoardInput.title = title;
@@ -135,6 +146,16 @@ export default function BoardWrite(props: IBoardWriteProps) {
     if (youtube && youtube.includes("https://www.youtube.com/watch")) {
       CreateBoardInput.youtubeUrl = youtube;
     }
+
+    if (zoneCode && address && detailAddress) {
+      const boardAddress = { zipcode: "", address: "", addressDetail: "" };
+      boardAddress.zipcode = zoneCode;
+      boardAddress.address = address;
+      boardAddress.addressDetail = detailAddress;
+
+      CreateBoardInput.boardAddress = boardAddress;
+    }
+    console.log(CreateBoardInput);
 
     if (writer && password && title && contents) {
       try {
@@ -152,9 +173,25 @@ export default function BoardWrite(props: IBoardWriteProps) {
     if (!boardId) return <></>;
   };
 
+  // Modal Handle Functions
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
+  const toggleAddressModal = () => {
+    setIsAddressModalOpen(!isAddressModalOpen);
+  };
+
   const onClickEdit = async () => {
-    if (!title && !contents && !youtube) {
-      alert("수정한 내용이 없습니다.");
+    if (
+      !title &&
+      !contents &&
+      !youtube &&
+      !zoneCode &&
+      !address &&
+      !detailAddress
+    ) {
+      setIsModalOpen(!isModalOpen);
       return;
     }
 
@@ -162,11 +199,20 @@ export default function BoardWrite(props: IBoardWriteProps) {
       alert("비밀번호를 입력해주세요");
       return;
     }
-
     const updateBoardInput: IUpdateBoardInput = {};
     if (title) updateBoardInput.title = title;
     if (contents) updateBoardInput.contents = contents;
-    if (youtube) updateBoardInput.youtubeUrl = youtube;
+    if (youtube && youtube.includes("https://www.youtube.com/watch")) {
+      updateBoardInput.youtubeUrl = youtube;
+    }
+
+    const boardAddress = { zipcode: "", address: "", addressDetail: "" };
+
+    if (zoneCode) boardAddress.zipcode = zoneCode;
+    if (address) boardAddress.address = address;
+    if (detailAddress) boardAddress.addressDetail = detailAddress;
+    updateBoardInput.boardAddress = boardAddress;
+
     const result = await updateBoard({
       variables: {
         boardId,
@@ -179,6 +225,13 @@ export default function BoardWrite(props: IBoardWriteProps) {
     router.push(`/boards/${result.data?.updateBoard._id}`);
   };
 
+  const onCompleteAddress = (data: any) => {
+    setAddress(String(data.address));
+    setZoneCode(String(data.zonecode));
+
+    setIsAddressModalOpen(!isAddressModalOpen);
+  };
+
   return (
     <BoardWriteUI
       onChangeWriter={onChangeWriter}
@@ -188,35 +241,21 @@ export default function BoardWrite(props: IBoardWriteProps) {
       onChangeYoutubeURI={onChangeYoutubeURI}
       onClickSubmit={onClickSubmit}
       onClickEdit={onClickEdit}
+      onChangeDetailAddress={onChangeDetailAddress}
       errorWriter={errorWriter}
       errorPassword={errorPassword}
       errorTitle={errorTitle}
       errorContent={errorContent}
+      toggleModal={toggleModal}
+      toggleAddressModal={toggleAddressModal}
+      isModalOpen={isModalOpen}
+      isAddressModalOpen={isAddressModalOpen}
       isActive={isActive}
       isEdit={props.isEdit}
+      onCompleteAddress={onCompleteAddress}
+      address={address}
+      zoneCode={zoneCode}
       data={props.data}
     />
   );
 }
-
-/**
- * <YouTube
-  videoId={string}                  // defaults -> ''
-  id={string}                       // defaults -> ''
-  className={string}                // defaults -> ''
-  iframeClassName={string}          // defaults -> ''
-  style={object}                    // defaults -> {}
-  title={string}                    // defaults -> ''
-  loading={string}                  // defaults -> undefined
-  opts={obj}                        // defaults -> {}
-  onReady={func}                    // defaults -> noop
-  onPlay={func}                     // defaults -> noop
-  onPause={func}                    // defaults -> noop
-  onEnd={func}                      // defaults -> noop
-  onError={func}                    // defaults -> noop
-  onStateChange={func}              // defaults -> noop
-  onPlaybackRateChange={func}       // defaults -> noop
-  onPlaybackQualityChange={func}    // defaults -> noop
-/>
- * 
- */

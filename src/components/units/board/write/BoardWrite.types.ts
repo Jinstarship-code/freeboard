@@ -23,12 +23,20 @@ export interface IBoardWriteUIProps {
   onChangeYoutubeURI: (event: ChangeEvent<HTMLInputElement>) => void;
   onClickSubmit: (event: MouseEvent<HTMLButtonElement>) => void;
   onClickEdit: (event: MouseEvent<HTMLButtonElement>) => void;
+  onChangeDetailAddress: (event: ChangeEvent<HTMLInputElement>) => void;
   errorWriter: string;
   errorPassword: string;
   errorTitle: string;
   errorContent: string;
+  toggleModal: () => void;
+  toggleAddressModal: () => void;
+  isModalOpen: boolean;
+  isAddressModalOpen: boolean;
   isActive: boolean;
   isEdit: boolean;
+  address?: string;
+  zoneCode?: string;
+  onCompleteAddress: (data: any) => void;
   data?: any;
 }
 
