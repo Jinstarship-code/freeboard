@@ -85,7 +85,14 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
         <InputWrapper>
           <Label>주소</Label>
           <ZipcodeWrapper>
-            <Zipcode defaultValue={props.zoneCode} />
+            <Zipcode
+              readOnly
+              value={
+                props.zoneCode !== ""
+                  ? props.zoneCode
+                  : props.data?.fetchBoard.boardAddress?.zipcode ?? ""
+              }
+            />
             <>
               <SearchButton onClick={props.toggleAddressModal}>
                 우편번호 검색
@@ -104,10 +111,20 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
               )}
             </>
           </ZipcodeWrapper>
-          <Address readOnly defaultValue={props.address} />
+          <Address
+            readOnly
+            value={
+              props.address !== ""
+                ? props.address
+                : props.data?.fetchBoard.boardAddress?.address ?? ""
+            }
+          />
           <Address
             placeholder="상세 주소를 입력해 주세요."
             onChange={props.onChangeDetailAddress}
+            defaultValue={
+              props.data?.fetchBoard.boardAddress?.addressDetail ?? ""
+            }
           />
         </InputWrapper>
         <InputWrapper>

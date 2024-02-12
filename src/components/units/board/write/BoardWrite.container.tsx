@@ -199,6 +199,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
       alert("비밀번호를 입력해주세요");
       return;
     }
+
     const updateBoardInput: IUpdateBoardInput = {};
     if (title) updateBoardInput.title = title;
     if (contents) updateBoardInput.contents = contents;
@@ -206,12 +207,13 @@ export default function BoardWrite(props: IBoardWriteProps) {
       updateBoardInput.youtubeUrl = youtube;
     }
 
-    const boardAddress = { zipcode: "", address: "", addressDetail: "" };
-
-    if (zoneCode) boardAddress.zipcode = zoneCode;
-    if (address) boardAddress.address = address;
-    if (detailAddress) boardAddress.addressDetail = detailAddress;
-    updateBoardInput.boardAddress = boardAddress;
+    if (zoneCode !== "" || address !== "" || detailAddress !== "") {
+      updateBoardInput.boardAddress = {};
+      if (zoneCode !== "") updateBoardInput.boardAddress.zipcode = zoneCode;
+      if (address !== "") updateBoardInput.boardAddress.address = address;
+      if (detailAddress !== "")
+        updateBoardInput.boardAddress.addressDetail = detailAddress;
+    }
 
     const result = await updateBoard({
       variables: {
