@@ -109,7 +109,12 @@ export const ColumnBasicTitle = styled.div`
 export const PagesWrapper = styled.div`
   margin-top: 40px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+
+  & div {
+    cursor: pointer;
+  }
 `;
 
 export const Button = styled.button`
@@ -122,6 +127,5 @@ export const Button = styled.button`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-
   cursor: pointer;
 `;

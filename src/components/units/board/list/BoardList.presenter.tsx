@@ -1,3 +1,4 @@
+import Pagination01 from "../../../commons/pagination/01/Pagination01.container";
 import {
   Container,
   SearchWrapper,
@@ -52,6 +53,7 @@ export default function BoardListUI(props: IBoardListUIProps) {
       </ListWrapper>
       <TableBottom />
       <PagesWrapper>
+        <Pagination01 refetch={props.refetch} lastPage={props.lastPage} />
         <Button onClick={props.onClickMoveNew}>
           <img src="/img/ic_create-24px.png" />
           게시물 등록하기

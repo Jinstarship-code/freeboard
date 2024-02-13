@@ -1,14 +1,21 @@
-import { Wrapper, Container, VerticalDiv } from "./layoutNav.styles";
+import { Wrapper, Container } from "./layoutNav.styles";
+import { ILayoutNavProps } from "./layoutNav.types";
 
-export default function LayoutNavUI() {
+const NAVIGATION_MENUS = [
+  { name: "자유게시판", page: "/boards" },
+  { name: "중고마켓", page: "/boards" },
+  { name: "마이페이지", page: "/boards" },
+];
+
+export default function LayoutNavUI(props: ILayoutNavProps) {
   return (
     <Wrapper>
       <Container>
-        <div>자유게시판</div>
-        <VerticalDiv>|</VerticalDiv>
-        <div>중고마켓</div>
-        <VerticalDiv>|</VerticalDiv>
-        <div>마이페이지</div>
+        {NAVIGATION_MENUS.map((item) => (
+          <div id={item.page} key={item.page} onClick={props.onClickNavMove}>
+            {item.name}
+          </div>
+        ))}
       </Container>
     </Wrapper>
   );
