@@ -17,7 +17,7 @@ import { IBoardCommentWriteProps } from "./BoardCommentWrite.types";
 export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
   const [writer, setWriter] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [rating, setRating] = useState<number>(3.5);
+  const [rating, setRating] = useState<GLfloat>(3.5);
   const [contents, setContents] = useState<string>("");
 
   const router = useRouter();
