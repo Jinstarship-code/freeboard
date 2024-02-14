@@ -13,12 +13,12 @@ import {
 import { useQuery, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 
-export default function BoardCommentList() {
+export default function BoardCommentList(): JSX.Element {
   const router = useRouter();
   const boardId =
     typeof router.query.boardId === "string" ? router.query.boardId : "";
 
-  const { data } = useQuery<
+  const { data, fetchMore } = useQuery<
     Pick<IQuery, "fetchBoardComments">,
     IQueryFetchBoardCommentsArgs
   >(FETCH_BOARDCOMMENTS, {
@@ -53,12 +53,37 @@ export default function BoardCommentList() {
     });
   };
 
+  const onLoadPage = (): void => {
+    if (data === undefined) return;
+
+    void fetchMore({
+      variables: {
+        page: Math.ceil(data?.fetchBoardComments.length ?? 10 / 10) + 1,
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (fetchMoreResult.fetchBoardComments === undefined) {
+          return {
+            fetchBoardComments: [...prev.fetchBoardComments],
+          };
+        }
+
+        return {
+          fetchBoardComments: [
+            ...prev.fetchBoardComments,
+            ...fetchMoreResult.fetchBoardComments,
+          ],
+        };
+      },
+    });
+  };
+
   if (!boardId) return <></>;
 
   return (
     <BoardCommentListUI
       data={data}
       onClickDeleteComment={onClickDeleteComment}
+      onLoadPage={onLoadPage}
     />
   );
 }

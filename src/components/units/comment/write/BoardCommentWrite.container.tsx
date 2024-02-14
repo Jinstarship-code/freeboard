@@ -15,10 +15,13 @@ import {
 import { IBoardCommentWriteProps } from "./BoardCommentWrite.types";
 
 export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
-  const [writer, setWriter] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [rating, setRating] = useState<number>(3.5);
-  const [contents, setContents] = useState<string>("");
+  const [inputs, setInputs] = useState({
+    writer: "",
+    password: "",
+    contents: "",
+  });
+
+  const [rating, setRating] = useState<number>(0.0);
 
   const router = useRouter();
   const boardId =
@@ -33,25 +36,23 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
     IMutationUpdateBoardCommentArgs
   >(UPDATE_BOARDCOMMENT);
 
-  const onChangeWriter = (event: ChangeEvent<HTMLInputElement>): void => {
-    setWriter(event.target.value);
-  };
-
-  const onChangePassword = (event: ChangeEvent<HTMLInputElement>): void => {
-    setPassword(event.target.value);
-  };
-
-  const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>): void => {
-    setContents(event.target.value);
+  const onChangeInputs = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ): void => {
+    setInputs((prev) => ({
+      ...prev,
+      [event.target.id]: event.target.value,
+    }));
+    console.log(inputs);
   };
 
   const onClickSubmitComment = async (): Promise<void> => {
-    if (!writer && !password) {
+    if (!inputs.writer && !inputs.password) {
       alert("작성자 또는 비밀번호를 입력하지 않았습니다.");
       return;
     }
 
-    if (!contents) {
+    if (!inputs.contents) {
       alert("내용을 입력해 주세요.");
       return;
     }
@@ -60,9 +61,7 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
       await createBoardComment({
         variables: {
           createBoardCommentInput: {
-            writer,
-            password,
-            contents,
+            ...inputs,
             rating,
           },
           boardId,
@@ -82,22 +81,23 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
   };
 
   const onClickUpdateComment = async () => {
-    if (!password) {
+    if (!inputs.password) {
       alert("비밀번호가 입력되지 않았습니다.");
       return;
     }
 
-    if (!contents) {
+    if (!inputs.contents) {
       alert("내용을 입력해주세요.");
     }
-
-    setRating(rating);
 
     try {
       await updateBoardComment({
         variables: {
-          updateBoardCommentInput: { contents, rating },
-          password,
+          updateBoardCommentInput: {
+            contents: inputs.contents,
+            rating,
+          },
+          password: inputs.password,
           boardCommentId: props.el._id,
         },
         refetchQueries: [
@@ -118,16 +118,13 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
   if (!boardId) return <></>;
   return (
     <BoardCommentWriteUI
-      onChangeWriter={onChangeWriter}
-      onChangePassword={onChangePassword}
-      onChangeContents={onChangeContents}
+      onChangeInputs={onChangeInputs}
       onClickSubmitComment={onClickSubmitComment}
       onClickUpdateComment={onClickUpdateComment}
       isEdit={props.isEdit}
       el={props.el}
-      contents={contents}
+      contents={inputs.contents}
       setRating={setRating}
-      rating={rating}
     />
   );
 }
