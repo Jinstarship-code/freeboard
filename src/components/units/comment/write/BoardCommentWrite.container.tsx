@@ -15,9 +15,6 @@ import {
 import { IBoardCommentWriteProps } from "./BoardCommentWrite.types";
 
 export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
-  // const [writer, setWriter] = useState<string>("");
-  // const [password, setPassword] = useState<string>("");
-  // const [contents, setContents] = useState<string>("");
   const [inputs, setInputs] = useState({
     writer: "",
     password: "",
@@ -48,18 +45,6 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
     }));
     console.log(inputs);
   };
-
-  // const onChangeWriter = (event: ChangeEvent<HTMLInputElement>): void => {
-  //   setWriter(event.target.value);
-  // };
-
-  // const onChangePassword = (event: ChangeEvent<HTMLInputElement>): void => {
-  //   setPassword(event.target.value);
-  // };
-
-  // const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>): void => {
-  //   setContents(event.target.value);
-  // };
 
   const onClickSubmitComment = async (): Promise<void> => {
     if (!inputs.writer && !inputs.password) {
@@ -133,9 +118,6 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
   if (!boardId) return <></>;
   return (
     <BoardCommentWriteUI
-      // onChangeWriter={onChangeWriter}
-      // onChangePassword={onChangePassword}
-      // onChangeContents={onChangeContents}
       onChangeInputs={onChangeInputs}
       onClickSubmitComment={onClickSubmitComment}
       onClickUpdateComment={onClickUpdateComment}

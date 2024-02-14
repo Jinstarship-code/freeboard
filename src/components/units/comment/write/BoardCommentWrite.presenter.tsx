@@ -33,7 +33,7 @@ export default function BoardCommentWriteUI(props: IBoardCommentWriteUIProps) {
           onChange={props.onChangeInputs}
           id="password"
         />
-        <Rate allowHalf id="rating" onChange={props.setRating} />
+        <Rate id="rating" onChange={props.setRating} />
       </RatingWrapper>
       <CommentWriterWrapper>
         <textarea
