@@ -19,7 +19,7 @@ export default function BoardCommentListUI(
               el={el}
               onClickDeleteComment={props.onClickDeleteComment}
             />
-          ))}
+          )) ?? <></>}
         </InfiniteScroll>
       </div>
     </>
