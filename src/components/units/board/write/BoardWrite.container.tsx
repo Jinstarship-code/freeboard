@@ -155,7 +155,6 @@ export default function BoardWrite(props: IBoardWriteProps) {
 
       CreateBoardInput.boardAddress = boardAddress;
     }
-    console.log(CreateBoardInput);
 
     if (writer && password && title && contents) {
       try {
