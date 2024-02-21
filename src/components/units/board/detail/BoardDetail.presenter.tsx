@@ -18,6 +18,8 @@ import {
   ButtonsWrapper,
   Button,
   YoutubeWrapper,
+  ContentImgs,
+  ImgWrapper,
 } from "./BoardDetail.styles";
 import { IBoardDetailUIProps } from "./BoardDetail.types";
 
@@ -58,6 +60,14 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
           ) : (
             <div></div>
           )}
+          <ImgWrapper>
+            {props.data?.fetchBoard?.images?.map((el, index, data) => (
+              <ContentImgs
+                key={`${index}`}
+                src={`${props.data?.fetchBoard.images?.[index]}`}
+              />
+            ))}
+          </ImgWrapper>
           <LikeDislikeWrapper>
             <LikeWrapper>
               <StyledImg

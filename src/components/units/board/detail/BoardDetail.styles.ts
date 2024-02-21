@@ -79,6 +79,16 @@ export const Contents = styled.div`
   font-size: 16px;
 `;
 
+export const ImgWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+
+export const ContentImgs = styled.img`
+  width: 300px;
+  height: 100px;
+`;
+
 export const YoutubeWrapper = styled.div`
   display: flex;
   flex-direction: column;
