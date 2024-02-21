@@ -25,6 +25,8 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [address, setAddress] = useState<string>("");
   const [detailAddress, setDetailAddress] = useState<string>("");
   const [zoneCode, setZoneCode] = useState<string>("");
+  const [files, setFiles] = useState<File[]>([]);
+  const [fileUrls, setFileUrls] = useState<string[]>([]);
 
   // error state
   const [errorWriter, setErrorWriter] = useState<string>("");
@@ -112,6 +114,22 @@ export default function BoardWrite(props: IBoardWriteProps) {
     setDetailAddress(String(event.target.value));
   };
 
+  const onChangeFiles = (file: File, index: number, url: string): void => {
+    const newFiles = [...files];
+    const newFileUrls = [...fileUrls];
+
+    if (files[index]) {
+      newFileUrls[index] = url;
+      newFiles[index] = file;
+    } else {
+      newFiles.push(file);
+      newFileUrls.push(url);
+    }
+
+    setFiles([...newFiles]);
+    setFileUrls([...newFileUrls]);
+  };
+
   //  #endregion onChange Functions
 
   const onClickSubmit = async () => {
@@ -145,6 +163,10 @@ export default function BoardWrite(props: IBoardWriteProps) {
 
     if (youtube && youtube.includes("https://www.youtube.com/watch")) {
       CreateBoardInput.youtubeUrl = youtube;
+    }
+
+    if (fileUrls) {
+      CreateBoardInput.images = fileUrls;
     }
 
     if (zoneCode && address && detailAddress) {
@@ -240,6 +262,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
       onChangeTitle={onChangeTitle}
       onChangeContent={onChangeContent}
       onChangeYoutubeURI={onChangeYoutubeURI}
+      onChangeFiles={onChangeFiles}
       onClickSubmit={onClickSubmit}
       onClickEdit={onClickEdit}
       onChangeDetailAddress={onChangeDetailAddress}
@@ -256,6 +279,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
       onCompleteAddress={onCompleteAddress}
       address={address}
       zoneCode={zoneCode}
+      fileUrls={fileUrls}
       data={props.data}
     />
   );

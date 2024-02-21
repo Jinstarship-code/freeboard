@@ -14,7 +14,7 @@ import type { MouseEvent } from "react";
 export default function MyFireBaseList(): JSX.Element {
   const router = useRouter();
   const [dataBoards, setDateBoards] = useState<DocumentData[]>([]);
-  // DocumentData[]
+
   const onClickDelete = async (
     e: MouseEvent<HTMLButtonElement>,
   ): Promise<void> => {

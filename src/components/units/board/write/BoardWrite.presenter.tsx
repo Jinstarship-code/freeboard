@@ -14,7 +14,6 @@ import {
   Subject,
   SubmitButton,
   Title,
-  UploadButton,
   Wrapper,
   Writer,
   WriterWrapper,
@@ -25,6 +24,7 @@ import {
 } from "./BoardWrite.styles";
 import { IBoardWriteUIProps } from "./BoardWrite.types";
 import DaumPostcodeEmbed from "react-daum-postcode";
+import UploadImg from "./UploadImg/UploadImg.container";
 
 export default function BoardWriteUI(props: IBoardWriteUIProps) {
   return (
@@ -137,9 +137,14 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
         </InputWrapper>
         <ImageWrapper>
           <Label>사진첨부</Label>
-          <UploadButton>+</UploadButton>
-          <UploadButton>+</UploadButton>
-          <UploadButton>+</UploadButton>
+          {new Array(3).fill(1).map((data, index) => (
+            <UploadImg
+              key={`${data}_${index}`}
+              onChagneFiles={props.onChangeFiles}
+              fileUrls={props.fileUrls}
+              index={index}
+            />
+          ))}
         </ImageWrapper>
         <OptionWrapper>
           <Label>메인설정</Label>

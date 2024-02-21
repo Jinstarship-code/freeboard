@@ -34,4 +34,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-/src/libraries/
+/src/commons/libraries/
+/src/commons/git_test/
