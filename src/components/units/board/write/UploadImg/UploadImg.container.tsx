@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import type { ChangeEvent, RefObject } from "react";
+import type { ChangeEvent } from "react";
 import UploadImgUI from "./UploadImg.presenter";
 import { UploadImgProps } from "./UploadImg.types";
 import { checkValidationFile } from "../../../../../commons/libraries/validationFile";
@@ -12,6 +12,8 @@ export default function UploadImg(props: UploadImgProps) {
   };
 
   const onChangeFile = (event: ChangeEvent<HTMLInputElement>): void => {
+    if (event.target?.files?.[0] === undefined) return;
+
     const file: File = event.target.files?.[0];
 
     if (!checkValidationFile(file)) return;
