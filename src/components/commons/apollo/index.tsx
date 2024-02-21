@@ -1,12 +1,21 @@
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  ApolloLink,
+} from "@apollo/client";
+import createUploadLink from "apollo-upload-client/createUploadLink.mjs";
 
 interface IApolloSettingProps {
   children: JSX.Element;
 }
 
 export default function ApolloSetting(props: IApolloSettingProps): JSX.Element {
-  const client = new ApolloClient({
+  const uploadLink = createUploadLink({
     uri: "http://backend-practice.codebootcamp.co.kr/graphql",
+  });
+  const client = new ApolloClient({
+    link: ApolloLink.from([uploadLink as unknown as ApolloLink]),
     cache: new InMemoryCache(),
   });
 

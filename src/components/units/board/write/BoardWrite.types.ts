@@ -24,6 +24,7 @@ export interface IBoardWriteUIProps {
   onClickSubmit: (event: MouseEvent<HTMLButtonElement>) => void;
   onClickEdit: (event: MouseEvent<HTMLButtonElement>) => void;
   onChangeDetailAddress: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeFiles: (file: File, index: number, url: string) => void;
   errorWriter: string;
   errorPassword: string;
   errorTitle: string;
@@ -37,6 +38,7 @@ export interface IBoardWriteUIProps {
   address?: string;
   zoneCode?: string;
   onCompleteAddress: (data: any) => void;
+  fileUrls: string[];
   data?: any;
 }
 
