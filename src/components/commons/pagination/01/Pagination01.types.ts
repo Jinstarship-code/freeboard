@@ -15,6 +15,7 @@ export interface IPagination01Props {
 export interface IPagination01UIProps {
   startPage: number;
   ActivedPage: number;
+  lastPage: number;
   onClickMovePage: (event: MouseEvent<HTMLDivElement>) => void;
   onClickPrevPage: (event: MouseEvent<HTMLDivElement>) => void;
   onClickNextPage: (event: MouseEvent<HTMLDivElement>) => void;

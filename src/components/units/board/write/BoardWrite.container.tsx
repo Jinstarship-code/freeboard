@@ -1,6 +1,6 @@
 import BoardWriteUI from "./BoardWrite.presenter";
 import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { IBoardWriteProps } from "./BoardWrite.types";
@@ -247,6 +247,11 @@ export default function BoardWrite(props: IBoardWriteProps) {
     if (!boardId) return <></>;
     router.push(`/boards/${result.data?.updateBoard._id}`);
   };
+
+  useEffect(() => {
+    const imgs = props.data?.fetchBoard.images;
+    if (imgs !== undefined && imgs !== null) setFileUrls([...imgs]);
+  }, [props.data]);
 
   const onCompleteAddress = (data: any) => {
     setAddress(String(data.address));

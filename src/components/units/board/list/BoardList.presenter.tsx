@@ -3,8 +3,6 @@ import {
   Container,
   SearchWrapper,
   SearchBox,
-  DateInputWrapper,
-  SearchButton,
   ListWrapper,
   Row,
   ColumnHeader,
@@ -23,12 +21,12 @@ export default function BoardListUI(props: IBoardListUIProps) {
     <Container>
       <SearchWrapper>
         <SearchBox>
-          <input type="text" placeholder="제목을 검색해주세요" />
+          <input
+            type="text"
+            placeholder="제목을 검색해주세요"
+            onChange={props.onChangeSearch}
+          />
         </SearchBox>
-        <DateInputWrapper>
-          <div>YYYY.MM.DD ~ YYYY.MM.DD</div>
-        </DateInputWrapper>
-        <SearchButton>검색하기</SearchButton>
       </SearchWrapper>
       <TableTop />
       <ListWrapper>

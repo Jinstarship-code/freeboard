@@ -28,6 +28,7 @@ export default function Pagination01(props: IPagination01Props) {
   return (
     <Pagination01UI
       startPage={startPage}
+      lastPage={props.lastPage}
       ActivedPage={ActivedPage}
       onClickMovePage={onClickMovePage}
       onClickPrevPage={onClickPrevPage}
