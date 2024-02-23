@@ -20,3 +20,7 @@ export interface IPagination01UIProps {
   onClickPrevPage: (event: MouseEvent<HTMLDivElement>) => void;
   onClickNextPage: (event: MouseEvent<HTMLDivElement>) => void;
 }
+
+export interface IPageProps {
+  isActive: boolean;
+}

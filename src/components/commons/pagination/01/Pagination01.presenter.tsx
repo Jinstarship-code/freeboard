@@ -2,8 +2,8 @@ import type { IPagination01UIProps } from "./Pagination01.types";
 import { Page } from "./Pagination01.styles";
 export default function Pagination01UI(props: IPagination01UIProps) {
   return (
-    <>
-      <div onClick={props.onClickPrevPage}>{"<"}</div>
+    <div>
+      <span onClick={props.onClickPrevPage}>{"<"}</span>
       {new Array(props.lastPage < 10 ? props.lastPage : 10)
         .fill(1)
         .map((_, index) => (
@@ -16,7 +16,7 @@ export default function Pagination01UI(props: IPagination01UIProps) {
             {index + props.startPage}
           </Page>
         ))}
-      <div onClick={props.onClickNextPage}>{">"}</div>
-    </>
+      <span onClick={props.onClickNextPage}>{">"}</span>
+    </div>
   );
 }

@@ -33,6 +33,7 @@ export default function BoardList() {
   };
 
   console.log(` lastPage : ${lastPage}`);
+
   const onClickMoveNew = () => {
     router.push(`/boards/new`);
   };
