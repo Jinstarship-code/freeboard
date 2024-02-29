@@ -1,6 +1,6 @@
-import type { IQuery } from "../../../../commons/types/generated/types";
+import type { DocumentData } from "firebase/firestore";
 
 export interface IProductListUIProps {
-  data: Pick<IQuery, "fetchUseditems"> | undefined;
+  productsBoard: DocumentData[];
   onClickMoveNewProduct: () => void;
 }

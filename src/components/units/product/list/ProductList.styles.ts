@@ -65,6 +65,48 @@ export const SearchWrapper = styled.div`
   flex-direction: row;
 `;
 
+export const ProductWrapper = styled.div`
+  width: 100%;
+  margin-top: 10px;
+  height: 190px;
+  border-top: 1px solid #bdbdbd;
+  display: flex;
+  flex-direction: row;
+`;
+
+export const ProductImg = styled.img`
+  width: 180px;
+  height: 180px;
+  margin: auto;
+`;
+
+export const ProductDescWrapper = styled.div`
+  width: 70%;
+  padding-left: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+`;
+
+export const PriceDiv = styled.div`
+  font-weight: bold;
+  font-size: 24px;
+  margin: auto;
+`;
+
+export const ProductDescBottomWrapper = styled.div`
+  display: flex;
+`;
+
+export const ProductDescBottom = styled.div`
+  display: flex;
+  color: #4f4f4f;
+  margin-right: 30px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+`;
+
 export const PagesWrapper = styled.div`
   margin-top: 40px;
   display: flex;

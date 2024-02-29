@@ -1,10 +1,4 @@
-import { useQuery } from "@apollo/client";
 import ProductListUI from "./ProductList.presenter";
-import { FETCH_USED_ITEMS } from "./ProductList.queries";
-import {
-  IQuery,
-  IQueryFetchUseditemsArgs,
-} from "../../../../commons/types/generated/types";
 import { useEffect, useState } from "react";
 import { collection, getDocs, type DocumentData } from "firebase/firestore";
 import { useRouter } from "next/router";
@@ -13,11 +7,6 @@ import { myDB } from "../../../../commons/libraries/firebase";
 export default function ProductList(): JSX.Element {
   const router = useRouter();
   const [productsBoard, setProductsBoard] = useState<DocumentData[]>([]);
-
-  const { data, refetch } = useQuery<
-    Pick<IQuery, "fetchUseditems">,
-    IQueryFetchUseditemsArgs
-  >(FETCH_USED_ITEMS);
 
   useEffect(() => {
     const fetchProduct = async (): Promise<void> => {
@@ -32,11 +21,16 @@ export default function ProductList(): JSX.Element {
     void fetchProduct();
   }, []);
 
+  console.log(productsBoard);
+
   const onClickMoveNewProduct = () => {
     router.push("/products/new");
   };
 
   return (
-    <ProductListUI data={data} onClickMoveNewProduct={onClickMoveNewProduct} />
+    <ProductListUI
+      productsBoard={productsBoard}
+      onClickMoveNewProduct={onClickMoveNewProduct}
+    />
   );
 }

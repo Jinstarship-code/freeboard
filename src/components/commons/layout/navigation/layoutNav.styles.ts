@@ -18,6 +18,10 @@ export const Container = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  & div {
+    cursor: pointer;
+  }
 `;
 
 export const VerticalDiv = styled.div`

@@ -6,9 +6,12 @@ import {
   Input,
   LabelWrapper,
   Contents,
-} from "./ProductWrite.types";
+  UploadButton,
+  ErrorDiv,
+} from "./ProductWrite.styles";
+import { IProductWriteUIProps } from "./ProductWrite.types";
 
-export default function ProductWriteUI() {
+export default function ProductWriteUI(props: IProductWriteUIProps) {
   return (
     <>
       <Wrapper>
@@ -19,13 +22,17 @@ export default function ProductWriteUI() {
             <Input
               type="text"
               placeholder="상품명을 작성해주세요."
-              id="writer"
+              id="name"
+              onChange={props.onChangeInputs}
             />
-            {/* <ErrorDiv>{props.errorWriter}</ErrorDiv> */}
+            <ErrorDiv>{props.errorName}</ErrorDiv>
           </InputWrapper>
         </LabelWrapper>
         <LabelWrapper>
-          <Contents />
+          <InputWrapper>
+            <Label>상품 설명</Label>
+            <Contents onChange={props.onChangeInputs} id="contents" />
+          </InputWrapper>
         </LabelWrapper>
         <LabelWrapper>
           <InputWrapper>
@@ -33,9 +40,10 @@ export default function ProductWriteUI() {
             <Input
               type="number"
               placeholder="판매가격을 입력해주세요."
-              id="writer"
+              id="price"
+              onChange={props.onChangeInputs}
             />
-            {/* <ErrorDiv>{props.errorWriter}</ErrorDiv> */}
+            <ErrorDiv>{props.errorPrice}</ErrorDiv>
           </InputWrapper>
         </LabelWrapper>
         <LabelWrapper>
@@ -45,6 +53,9 @@ export default function ProductWriteUI() {
             {/* <ErrorDiv>{props.errorWriter}</ErrorDiv> */}
           </InputWrapper>
         </LabelWrapper>
+        <div style={{ marginTop: "30px" }}>
+          <UploadButton onClick={props.onClickSubmit}>등록하기</UploadButton>
+        </div>
       </Wrapper>
     </>
   );
