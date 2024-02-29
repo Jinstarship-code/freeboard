@@ -3,7 +3,7 @@ import { ILayoutNavProps } from "./layoutNav.types";
 
 const NAVIGATION_MENUS = [
   { name: "자유게시판", page: "/boards" },
-  { name: "중고마켓", page: "/boards" },
+  { name: "중고마켓", page: "/products" },
   { name: "마이페이지", page: "/boards" },
 ];
 
