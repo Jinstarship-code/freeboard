@@ -127,7 +127,9 @@ export default function BoardWrite(props: IBoardWriteProps) {
     }
 
     setFiles([...newFiles]);
+
     setFileUrls([...newFileUrls]);
+    console.log(files);
   };
 
   //  #endregion onChange Functions

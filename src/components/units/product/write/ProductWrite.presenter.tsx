@@ -10,6 +10,7 @@ import {
   ErrorDiv,
 } from "./ProductWrite.styles";
 import { IProductWriteUIProps } from "./ProductWrite.types";
+import UploadImg from "./UploadImg/UploadImg.container";
 
 export default function ProductWriteUI(props: IProductWriteUIProps) {
   return (
@@ -48,10 +49,23 @@ export default function ProductWriteUI(props: IProductWriteUIProps) {
         </LabelWrapper>
         <LabelWrapper>
           <InputWrapper>
-            <Label>상품명</Label>
+            <Label>상품 태그</Label>
             <Input type="text" placeholder="#태그 #태그 #태그" id="writer" />
-            {/* <ErrorDiv>{props.errorWriter}</ErrorDiv> */}
           </InputWrapper>
+        </LabelWrapper>
+        <LabelWrapper>
+          <div>
+            <Label>사진 첨부</Label>
+            <div>
+              {new Array(1).fill(1).map((_, index) => (
+                <UploadImg
+                  key={String(index)}
+                  setFile={props.setFile}
+                  imgInfo={props.imgInfo}
+                />
+              ))}
+            </div>
+          </div>
         </LabelWrapper>
         <div style={{ marginTop: "30px" }}>
           <UploadButton onClick={props.onClickSubmit}>등록하기</UploadButton>
