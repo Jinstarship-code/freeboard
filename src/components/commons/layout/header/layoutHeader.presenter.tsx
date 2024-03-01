@@ -13,7 +13,7 @@ export default function LayoutHeaderUI(props: ILayoutHeaderProps) {
       </div>
       <ProfileWrapper>
         <div>
-          <img src="/img/ic_profile-48px.png" />
+          <img src="/img/ic_profile-48px.png" onClick={props.onClickMove} />
         </div>
         <div>
           <img src="/img/layout/ic_more-24px.png" />
